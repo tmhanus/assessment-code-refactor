@@ -1,0 +1,6 @@
+@Refactoring_HostAddress = http://localhost:5254
+
+POST {{Refactoring_HostAddress}}/api/order/process?productId=1&productType=Type1&paymentType=PayPal HTTP/1.1
+Accept: application/json
+
+###
