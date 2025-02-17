@@ -22,4 +22,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Refactoring.UnitTests" />
+  </ItemGroup>
+
 </Project>

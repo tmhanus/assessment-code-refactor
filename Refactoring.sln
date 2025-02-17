@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refactoring", "Refactoring\Refactoring.csproj", "{917CDDCD-74A6-4241-AA73-96B07FD8F3ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refactoring.UnitTests", "Refactoring.UnitTests\Refactoring.UnitTests.csproj", "{E2F1E35A-A6CB-468A-8591-A608825E0CD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{917CDDCD-74A6-4241-AA73-96B07FD8F3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{917CDDCD-74A6-4241-AA73-96B07FD8F3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{917CDDCD-74A6-4241-AA73-96B07FD8F3ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2F1E35A-A6CB-468A-8591-A608825E0CD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2F1E35A-A6CB-468A-8591-A608825E0CD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2F1E35A-A6CB-468A-8591-A608825E0CD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2F1E35A-A6CB-468A-8591-A608825E0CD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

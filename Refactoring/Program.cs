@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Refactoring.Application.Models.Settings;
 using Refactoring.Application.Services.Payments;
@@ -8,8 +9,6 @@ using Refactoring.Infrastructure.DB;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Email"));
 
@@ -22,7 +21,6 @@ builder.Services.AddDbContext<OrdersDbContext>(options =>
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
@@ -31,21 +29,15 @@ builder.Services.AddScoped<IEmailClient, HttpEmailClient>();
 builder.Services.AddScoped<IOutputWriter, ConsoleOutputWriter>();
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 
-builder.Services.AddTransient<CreditCardPaymentHandler>();
-builder.Services.AddTransient<PayPalPaymentHandler>();
-builder.Services.AddTransient<FallbackPaymentHandler>();
-
-builder.Services.AddTransient<Func<IPaymentHandler>>(provider =>
+foreach (var strategyType in Assembly.GetExecutingAssembly()
+             .GetTypes()
+             .Where(t => t.GetInterfaces().Contains(typeof(IPaymentStrategy))))
 {
-    var creditCardPaymentHandler = provider.GetRequiredService<CreditCardPaymentHandler>();
-    var paypalPaymentHandler = provider.GetRequiredService<PayPalPaymentHandler>();
-    var fallbackPaymentHandler = provider.GetRequiredService<FallbackPaymentHandler>();
+    builder.Services.AddScoped(typeof(IPaymentStrategy), strategyType);
+}
 
-    creditCardPaymentHandler.SetNextHandler(paypalPaymentHandler);
-    paypalPaymentHandler.SetNextHandler(fallbackPaymentHandler);
-
-    return () => creditCardPaymentHandler;
-});
+builder.Services.AddScoped<IPaymentStrategyFactory, PaymentStrategyFactory>();
+builder.Services.AddScoped<IPaymentProcessor, PaymentProcessor>();
 
 var app = builder.Build();
 

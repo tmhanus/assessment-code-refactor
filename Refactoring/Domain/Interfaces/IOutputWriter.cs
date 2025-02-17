@@ -1,6 +1,4 @@
-﻿using System.Xml;
-
-namespace Refactoring.Domain.Interfaces;
+﻿namespace Refactoring.Domain.Interfaces;
 
 public interface IOutputWriter
 {
